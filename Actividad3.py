@@ -1,5 +1,11 @@
 # Nombre: Roberto Miguel Rodriguez Hermann
 # Matricula: A00829553
+#Reflexion: #Esta actividad me emociono mucho porque pouse en practica las habilidades que consegui durante estos 3 dias. Que a pesar de ser poco tiempo siento que aprendi 
+#mucho, pues nunca imagine que podria lograr mejorar la inteligencia de los enemigos con herrmaientas tan básicas. Al fin comprendi mejor el orden en que se llevan a cabo 
+#las acciones dentro del código lo que hizo que todo fuera más fácil. Dentro de mi carrera a veces es dificil imaginarte o el movimiento o comportamiento de ciertos fenomenos 
+#y creo que con lo que aprendi, en especial hoy, puedo hacer programas para vizualisarlo de una mejor manera y poder explicarlos. Por otro lado ahora siento mas 
+#confianza para la actividad final, pues no me sentia capaz de hacer un juego desde 0 y ahora con lo que logre con mi equipo si creo que podemos dar un buen trabajo.
+
 # Nombre: Roberto Miguel Rodriguez Hermann
 # Matricula: A00829553
 # Reflexion:
@@ -65,48 +71,52 @@ def square(x, y):
 
     path.end_fill()
 
-#
+
 def offset(point):
     "Return offset of point in tiles."
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
     return index
-
-# 
+#retorna true si es un tile valido (que no sea una pared) 
 def valid(point):
     "Return True if point is valid in tiles."
     index = offset(point)
-
+#si es 0 ternoa flase -pared
     if tiles[index] == 0:
         return False
 
     index = offset(point + 19)
-
+#si es 0 ternoa flase -pared
     if tiles[index] == 0:
         return False
-
+#checa el valor de X y Y en un punto
     return point.x % 20 == 0 or point.y % 20 == 0
-
+#dibuja el mapa
 def world():
     "Draw world using path."
     bgcolor('black')
     path.color('blue')
-
+#checa el valor en la lista del index
     for index in range(len(tiles)):
         tile = tiles[index]
 
         if tile > 0:
-            x = (index % 20) * 20 - 200
-            y = 180 - (index // 20) * 20
-            square(x, y)
-
+            #calcula la X Y donde se dibuja el square
+            x = (index % 20) * 20 - 200 # si index es (21%20)*20-200=-180
+            y = 180 - (index // 20) * 20#180-(21//20)*20=160
+            square(x, y)#diuja el square en (-180,160)
+# dibuja las galltas sobre el square en el centro de las tiles
             if tile == 1:
                 path.up()
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
 def move():
+    #listas de colores para fantasmas
+    "Move pacman and all ghosts."
+    #listas de colores para fantasmas
+    colores = ['red','orange','green','white']
     "Move pacman and all ghosts."
     writer.undo()
     writer.write(state['score'])
@@ -128,6 +138,7 @@ def move():
     up()
     goto(pacman.x + 10, pacman.y + 10)
     dot(20, 'yellow')
+    k=0
 
     for point, course in ghosts:
         if valid(point + course):
@@ -170,7 +181,8 @@ def move():
 
         up()
         goto(point.x + 10, point.y + 10)
-        dot(20, 'red')
+        dot(20, colores[k])
+        k=k+1
 
     update()
 

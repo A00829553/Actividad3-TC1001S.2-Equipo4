@@ -139,7 +139,22 @@ def move():
                 vector(0, 5),
                 vector(0, -5),
             ]
-            plan = choice(options)
+            if abs(point.x-pacman.x) > abs(point.y-pacman.y):
+              if point.x > pacman.x:
+                plan = options[1]
+                  
+              else:
+                plan = options[0]
+              
+            elif abs(point.x-pacman.x) < abs(point.y-pacman.y):
+              if point.y > pacman.y:
+                plan = options[3]
+
+            else:
+                plan = options[2]
+              
+            else:
+              plan=choice(options)
             course.x = plan.x
             course.y = plan.y
 

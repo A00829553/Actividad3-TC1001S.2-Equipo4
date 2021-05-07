@@ -145,14 +145,24 @@ def move():
                   
               else:
                 plan = options[0]
-              
+              if not valid(point + plan):  
+                if point.y > pacman.y:
+                  plan = options[3]
+
+                else:
+                  plan = options[2]
+
             elif abs(point.x-pacman.x) < abs(point.y-pacman.y):
               if point.y > pacman.y:
                 plan = options[3]
 
-            else:
+              else:
                 plan = options[2]
-              
+              if not valid(point + plan):  
+                if point.x > pacman.x:
+                  plan = options[1]
+                else:
+                  plan = options[0]
             else:
               plan=choice(options)
             course.x = plan.x
